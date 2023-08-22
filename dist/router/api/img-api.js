@@ -14,8 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const utils_1 = require("../../utils");
+const middleware_1 = require("../../middleware");
 const imgs = express_1.default.Router();
-imgs.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+imgs.get('/', middleware_1.handlerError, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { filename: fileName, width, height } = req.query;
     const imageTransformed = yield (0, utils_1.resizeImage)(fileName, width, height);
     imageTransformed === null || imageTransformed === void 0 ? void 0 : imageTransformed.toFile(`./thumbs/${fileName}-${width}-${height}.jpg`, (err) => __awaiter(void 0, void 0, void 0, function* () {
@@ -26,8 +27,5 @@ imgs.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         imageTransformed.toBuffer();
         imageTransformed.pipe(res.status(200));
     }));
-    // res.send(
-    // 	`<img src ='http://localhost:3000/imgs/${fileName}.jpg' width = ${width} height=${height} />`
-    // );
 }));
 exports.default = imgs;

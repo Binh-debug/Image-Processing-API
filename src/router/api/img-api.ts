@@ -3,7 +3,7 @@ import { resizeImage } from '../../utils';
 import { handlerError } from '../../middleware';
 
 const imgs = express.Router();
-imgs.get('/', async (req, res) => {
+imgs.get('/', handlerError, async (req, res) => {
 	const { filename: fileName, width, height } = req.query;
 	const imageTransformed = await resizeImage(
 		fileName as string,
@@ -22,9 +22,6 @@ imgs.get('/', async (req, res) => {
 			imageTransformed.pipe(res.status(200));
 		}
 	);
-	// res.send(
-	// 	`<img src ='http://localhost:3000/imgs/${fileName}.jpg' width = ${width} height=${height} />`
-	// );
 });
 
 export default imgs;
