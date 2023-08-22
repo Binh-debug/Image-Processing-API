@@ -1,6 +1,6 @@
 import sharp from 'sharp';
 import path from 'path';
-import { checkImageExist } from '../utils';
+import { checkImageExist, resizeImage } from '../utils';
 
 describe('Check Image Exist In Img Folder', () => {
 	it('Image does not exist', async () => {
@@ -16,9 +16,13 @@ describe('Check Image Exist In Img Folder', () => {
 
 describe('Check Error Resize', () => {
 	it('Get a sharp file.', async () => {
-		const transform = sharp(path.join('imgs/encenadaport.jpg'));
 		expect(async () => {
-			await transform;
+			await sharp(path.join('imgs/encenadaport.jpg'));
+		}).not.toThrow();
+	});
+	it('Should resize image is correctly', async () => {
+		expect(async () => {
+			await resizeImage('encenadaport', '200', '200');
 		}).not.toThrow();
 	});
 });

@@ -27,9 +27,13 @@ describe('Check Image Exist In Img Folder', () => {
 });
 describe('Check Error Resize', () => {
     it('Get a sharp file.', () => __awaiter(void 0, void 0, void 0, function* () {
-        const transform = (0, sharp_1.default)(path_1.default.join('imgs/encenadaport.jpg'));
         expect(() => __awaiter(void 0, void 0, void 0, function* () {
-            yield transform;
+            yield (0, sharp_1.default)(path_1.default.join('imgs/encenadaport.jpg'));
         })).not.toThrow();
+    }));
+    it('Should resize image is correctly', () => __awaiter(void 0, void 0, void 0, function* () {
+        expect(() => __awaiter(void 0, void 0, void 0, function* () {
+            yield (0, utils_1.resizeImage)('encenadaport', '200', '200');
+        })).toEqual(sharp_1.default);
     }));
 });
